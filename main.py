@@ -29,7 +29,7 @@ async def lockc(ctx, channel_id: int):
 @client.command()
 @commands.has_permissions(manage_channels=True)
 async def unlockc(ctx, channel_id: int):
-    channel = bot.get_channel(channel_id)
+    channel = client.get_channel(channel_id)
     
     if channel is None:
         await ctx.send("Channel not found.")
