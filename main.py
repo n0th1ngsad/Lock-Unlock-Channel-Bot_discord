@@ -26,4 +26,20 @@ async def lockc(ctx, channel_id: int):
     
     await ctx.send(f"Channel <#{channel_id}> has been locked.")
 
+@client.command()
+@commands.has_permissions(manage_channels=True)
+async def unlockc(ctx, channel_id: int):
+    channel = bot.get_channel(channel_id)
+    
+    if channel is None:
+        await ctx.send("Channel not found.")
+        return
+    
+    for role_id in LOCKED_ROLES:
+        role = ctx.guild.get_role(role_id)
+        if role is not None:
+            await channel.set_permissions(role, send_messages=None)
+    
+    await ctx.send(f"Channel <#{channel_id}> has been unlocked")
+
 client.run('YOUR_TOKEN')
